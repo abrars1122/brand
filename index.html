@@ -781,18 +781,25 @@
 <button id="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})"><i class="fa-solid fa-arrow-up"></i></button>
 <a href="https://wa.me/9908961508" class="whatsapp-float" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
 
-<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+
 <script>
 document.addEventListener("DOMContentLoaded", function(){
 
   // EMAILJS INIT
-  emailjs.init("VWcglAQBW75UCDiCdx");
+  emailjs.init("WcglAQBW75UCDiCdx");
 
   // NAVBAR SCROLL
   const navbar = document.getElementById('navbar');
   window.addEventListener('scroll', () => {
-    navbar.classList.toggle('scrolled', window.scrollY > 50);
-    document.getElementById('back-top').classList.toggle('visible', window.scrollY > 400);
+    if(navbar){
+      navbar.classList.toggle('scrolled', window.scrollY > 50);
+    }
+
+    const backTop = document.getElementById('back-top');
+    if(backTop){
+      backTop.classList.toggle('visible', window.scrollY > 400);
+    }
   });
 
   // REVEAL ANIMATION
@@ -805,124 +812,68 @@ document.addEventListener("DOMContentLoaded", function(){
       }
     });
   }, { threshold: 0.1 });
+
   revealEls.forEach(el => revealObserver.observe(el));
-
-  // SKILL BARS
-  const skillObs = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.querySelectorAll('.skill-fill').forEach(fill => fill.classList.add('animated'));
-        skillObs.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.4 });
-  const aboutSection = document.getElementById('about');
-  if (aboutSection) skillObs.observe(aboutSection);
-
-  // STATS COUNTER
-  function countUp(el, target, suffix) {
-    let current = 0;
-    const increment = target / 60;
-    const timer = setInterval(() => {
-      current += increment;
-      if (current >= target) { current = target; clearInterval(timer); }
-      el.textContent = Math.floor(current) + suffix;
-    }, 25);
-  }
-  const statsObs = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        document.querySelectorAll('[data-target]').forEach(el => {
-          const target = parseInt(el.dataset.target);
-          const suffix = target === 100 ? "%" : "+";
-          countUp(el, target, suffix);
-        });
-        statsObs.disconnect();
-      }
-    });
-  }, { threshold: 0.5 });
-  const heroStats = document.querySelector('.hero-stats');
-  if (heroStats) statsObs.observe(heroStats);
-
-  // PORTFOLIO FILTER
-  document.querySelectorAll('.filter-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-    });
-  });
-
-  // MOBILE MENU
-  document.getElementById('hamburger').addEventListener('click', function() {
-    const links = document.querySelector('.nav-links');
-    if (links.style.display === "flex") {
-      links.style.display = "none";
-    } else {
-      links.style.cssText = "display:flex;flex-direction:column;position:fixed;top:70px;left:0;right:0;background:rgba(5,8,16,0.97);padding:24px 6%;gap:20px;border-bottom:1px solid rgba(255,255,255,0.07);backdrop-filter:blur(20px);z-index:999;";
-    }
-  });
 
 });
 
-// CONTACT FORM — EmailJS with proper error handling
+
+// CONTACT FORM
 window.submitForm = function() {
+
   const firstName = document.getElementById("firstName").value.trim();
   const lastName  = document.getElementById("lastName").value.trim();
   const email     = document.getElementById("email").value.trim();
   const phone     = document.getElementById("phone").value.trim();
   const service   = document.getElementById("service").value;
   const message   = document.getElementById("message").value.trim();
+
   const btn       = document.getElementById("submitBtn");
   const successEl = document.getElementById("successMsg");
   const errorEl   = document.getElementById("errorMsg");
 
-  // Hide previous messages
   successEl.style.display = "none";
   errorEl.style.display   = "none";
 
-  // Validation
   if (!firstName || !lastName || !email || !message) {
-    alert("Please fill in all required fields (First Name, Last Name, Email, Message).");
-    return;
-  }
-  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if (!emailPattern.test(email)) {
-    alert("Please enter a valid email address.");
+    alert("Please fill required fields.");
     return;
   }
 
-  // Disable button while sending
   btn.disabled = true;
-  btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Sending...';
+  btn.innerHTML = "Sending...";
 
   const templateParams = {
-    name:    firstName + " " + lastName,
-    email:   email,
-    phone:   phone || "Not provided",
+    name: firstName + " " + lastName,
+    email: email,
+    phone: phone || "Not provided",
     service: service,
     message: message
   };
 
-  emailjs.send("service_hl6kkh", "template_tjsy3iq", templateParams)
-    .then(function() {
-      successEl.style.display = "flex";
-      successEl.style.alignItems = "center";
-      // Reset form
-      ["firstName","lastName","email","phone","message"].forEach(id => {
-        document.getElementById(id).value = "";
-      });
-      setTimeout(() => { successEl.style.display = "none"; }, 6000);
-    })
-    .catch(function(error) {
-      console.error("EmailJS error:", error);
-      errorEl.style.display = "flex";
-      errorEl.style.alignItems = "center";
-      setTimeout(() => { errorEl.style.display = "none"; }, 6000);
-    })
-    .finally(function() {
-      btn.disabled = false;
-      btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Send Message';
-    });
+  emailjs.send("service_hl6kkhb", "template_tjsy3iq", templateParams)
+
+  .then(function(response){
+    successEl.style.display = "block";
+
+    document.getElementById("firstName").value="";
+    document.getElementById("lastName").value="";
+    document.getElementById("email").value="";
+    document.getElementById("phone").value="";
+    document.getElementById("message").value="";
+
+  })
+
+  .catch(function(error){
+    console.log("EmailJS error:", error);
+    errorEl.style.display = "block";
+  })
+
+  .finally(function(){
+    btn.disabled = false;
+    btn.innerHTML = "Send Message";
+  });
+
 };
 </script>
 </body>
