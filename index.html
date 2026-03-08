@@ -902,5 +902,61 @@ window.submitForm = function() {
 
 };
 </script>
+<script>
+/* STATS COUNTER FIX */
+
+function countUp(el,target,suffix){
+
+let current = 0;
+const increment = target / 60;
+
+const timer = setInterval(()=>{
+
+current += increment;
+
+if(current >= target){
+current = target;
+clearInterval(timer);
+}
+
+el.textContent = Math.floor(current) + suffix;
+
+},25);
+
+}
+
+const statsObs = new IntersectionObserver((entries)=>{
+
+entries.forEach(entry=>{
+
+if(entry.isIntersecting){
+
+document.querySelectorAll('[data-target]').forEach(el=>{
+
+const target = parseInt(el.dataset.target);
+
+let suffix = "+";
+
+if(target === 100) suffix = "%";
+if(target === 1) suffix = "+";
+
+countUp(el,target,suffix);
+
+});
+
+statsObs.disconnect();
+
+}
+
+});
+
+},{threshold:0.5});
+
+const heroStats = document.querySelector('.hero-stats');
+
+if(heroStats){
+statsObs.observe(heroStats);
+}
+</script>
 </body>
 </html>
