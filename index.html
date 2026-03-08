@@ -284,14 +284,25 @@
   .skill-fill.animated { transform: scaleX(1); }
 
   /* CONTACT */
- #contact { 
-background: var(--surface); 
-display: grid; 
-grid-template-columns: 1fr 1fr; 
-gap: 80px; 
-align-items: start;
-max-width: 1200px;
-margin: auto;
+ #contact{
+background: var(--surface);
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:80px;
+align-items:start;
+max-width:1200px;
+margin:auto;
+padding-bottom:120px;
+}
+
+.contact-info{
+grid-column:1;
+}
+
+.contact-form-wrap{
+grid-column:2;
+width:100%;
+margin-bottom:40px;
 }
   .contact-info .section-sub { margin-bottom: 40px; }
   .contact-items { display: flex; flex-direction: column; gap: 20px; }
@@ -702,7 +713,7 @@ margin-bottom:40px;
   </div>
 </a>
 
-<a href="https://wa.me/919908961508" target="_blank" class="contact-item">
+<a href="https://wa.me/9908961508" target="_blank" class="contact-item">
   <div class="contact-item-icon">
     <i class="fa-brands fa-whatsapp"></i>
   </div>
