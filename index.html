@@ -284,7 +284,15 @@
   .skill-fill.animated { transform: scaleX(1); }
 
   /* CONTACT */
-  #contact { background: var(--surface); display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+ #contact { 
+background: var(--surface); 
+display: grid; 
+grid-template-columns: 1fr 1fr; 
+gap: 80px; 
+align-items: start;
+max-width: 1200px;
+margin: auto;
+}
   .contact-info .section-sub { margin-bottom: 40px; }
   .contact-items { display: flex; flex-direction: column; gap: 20px; }
   .contact-item { display: flex; align-items: flex-start; gap: 16px; padding: 20px; background: var(--card); border: 1px solid var(--border); border-radius: 14px; transition: border-color 0.3s; }
