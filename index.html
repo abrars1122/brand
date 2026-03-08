@@ -365,6 +365,46 @@ padding-bottom:120px;
 .contact-form-wrap{
 margin-bottom:40px;
 }
+
+/* CLIENT LOGOS */
+
+#clients{
+padding:60px 6%;
+text-align:center;
+border-top:1px solid var(--border);
+border-bottom:1px solid var(--border);
+background:var(--bg);
+}
+
+.clients-title{
+font-size:0.9rem;
+letter-spacing:0.15em;
+text-transform:uppercase;
+color:var(--muted);
+margin-bottom:30px;
+}
+
+.clients-logos{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+align-items:center;
+gap:60px;
+opacity:0.7;
+}
+
+.clients-logos img{
+height:28px;
+filter:grayscale(100%);
+opacity:0.8;
+transition:all 0.3s;
+}
+
+.clients-logos img:hover{
+filter:none;
+opacity:1;
+transform:scale(1.05);
+}
 </style>
 </head>
 <body>
@@ -434,6 +474,30 @@ margin-bottom:40px;
     <div class="marquee-item">Mobile Apps</div><div class="marquee-item">Social Media</div>
   </div>
 </div>
+
+<section id="clients">
+  <div class="clients-wrapper">
+
+    <p class="clients-title">Trusted by growing brands</p>
+
+    <div class="clients-logos">
+
+      <img src="https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg" alt="Microsoft">
+
+      <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" alt="Amazon">
+
+      <img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" alt="Google">
+
+      <img src="https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg" alt="Netflix">
+
+      <img src="https://upload.wikimedia.org/wikipedia/commons/2/24/Samsung_Logo.svg" alt="Samsung">
+
+      <img src="https://upload.wikimedia.org/wikipedia/commons/6/6a/Apple_logo_black.svg" alt="Apple">
+
+    </div>
+
+  </div>
+</section>
 
 <!-- SERVICES — each card links to its own page -->
 <section id="services">
