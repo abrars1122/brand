@@ -405,23 +405,52 @@ filter:none;
 opacity:1;
 transform:scale(1.05);
 }
+
+@media (max-width:768px){
+
+.nav-links{
+display:none;
+flex-direction:column;
+position:fixed;
+top:70px;
+left:0;
+right:0;
+background:#0a0a0a;
+padding:25px;
+gap:20px;
+z-index:999;
+border-bottom:1px solid var(--border);
+}
+
+.nav-links.active{
+display:flex;
+}
+
+}
 </style>
 </head>
 <body>
 
 <nav id="navbar">
-  <a href="index.html" class="nav-logo">Brandvanta</a>
-  <div class="nav-links">
-    <a href="#services">Services</a>
-    <a href="#process">Process</a>
-    <a href="#portfolio">Portfolio</a>
-    <a href="#about">About</a>
-    <a href="#testimonials">Reviews</a>
-    <a href="#contact" class="nav-cta">Get Started</a>
-  </div>
-  <div class="hamburger" id="hamburger">
-    <span></span><span></span><span></span>
-  </div>
+
+<a href="index.html" class="nav-logo">Brandvanta</a>
+
+<div class="nav-links" id="navLinks">
+
+<a href="index.html">Home</a>
+<a href="services.html">Services</a>
+<a href="portfolio.html">Portfolio</a>
+<a href="about.html">About</a>
+<a href="contact.html" class="nav-cta">Get Started</a>
+
+</div>
+
+<div class="hamburger" id="hamburger">
+<span></span>
+<span></span>
+<span></span>
+</div>
+
 </nav>
 
 <section id="hero">
@@ -1063,6 +1092,28 @@ const heroStats = document.querySelector('.hero-stats');
 if(heroStats){
 statsObs.observe(heroStats);
 }
+// MOBILE MENU
+
+const hamburger = document.getElementById("hamburger");
+const navLinks = document.getElementById("navLinks");
+
+hamburger.addEventListener("click", function(){
+
+navLinks.classList.toggle("active");
+
+});
+
+// CLOSE MENU AFTER CLICK
+
+document.querySelectorAll("#navLinks a").forEach(link => {
+
+link.addEventListener("click", () => {
+
+navLinks.classList.remove("active");
+
+});
+
+});
 </script>
 </body>
 </html>
